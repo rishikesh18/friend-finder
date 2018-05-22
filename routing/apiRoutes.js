@@ -19,30 +19,30 @@ app.post("/api/friends", function(req, res) {
     
 var newFriend = req.body;
 var newFriendResponses = newFriend.scores;
-var totdiff;//
+var totdiff;
 
 
 //Goes through current friend list   
 for (var i = 0; i < friends.length; i++) {
   var currentfrnd=friends[i];
     totdiff=0;
-//   // Sorts new friends' scores and compares current and new lists
+//Sorting new friends' scores and compares current and new lists
     for (var j = 0; j < currentfrnd.scores.length; j++) {
     var currentFriendScore = currentfrnd.scores[j];
     var currentUserScore = newFriendResponses[j];
 
-// We calculate the difference between the scores and sum them into the totalDifference
+// Calculating the difference between the scores and sum them into the totalDifference
   totdiff += Math.abs(parseInt(currentUserScore) - parseInt(currentFriendScore));
   }
 
   if (totdiff <= bestfriend.friendDifference) {
-    // Reset the bestfriend  to be the new friend.
+    // Reseting the bestfriend  to be the new friend.
     bestfriend.name = currentfrnd.name;
     bestfriend.photo = currentUserScore.photo;
     bestfriend.friendDifference = totdiff;
   }
 }
-
+//Pushing new friends to friends
 friends.push(newFriend);
 
 res.json(bestfriend );
